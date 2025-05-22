@@ -2,12 +2,7 @@
  plugins {
 id "org.jetbrains.kotlin.android"
  }
-buildscript {
-    ext.kotlin_version = '1.8.10' 
-    repositories {
-        google()
-        mavenCentral()
-    }
+
 
  
 }
