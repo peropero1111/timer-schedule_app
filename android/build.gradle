@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.9.22' // 원하는 Kotlin 버전
+    ext.kotlin_version = '1.9.10' // 원하는 Kotlin 버전
 
     repositories {
         google()
