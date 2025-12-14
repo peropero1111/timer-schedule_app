@@ -4,5 +4,5 @@
 
 copilot 의 도움을 받아서 코드를 작성하였습니다.
 
-완성시 이곳에 apk 파일 배포 주소가 들어갈 것 입니다.
+ [이곳](https://drive.proton.me/urls/CH19TB5VJR#XLo3y7sXiNTp) 에서 완성된 파일을 다운하실 수 있습니다.
 
