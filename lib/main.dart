@@ -1,3 +1,4 @@
+
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -10,24 +11,26 @@ void main() {
   ));
 }
 
+=================== 메인 화면 전환 및 메뉴 관리 ===================
 class MainApp extends StatefulWidget {
   @override
   _MainAppState createState() => _MainAppState();
 }
 
 class _MainAppState extends State<MainApp> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 0; //  할일 목록,타이머
 
   final List<Widget> _pages = [
     TodoListApp(),
     TimerApp(),
   ];
 
+  // 사이드 메뉴 선택 시 화면 전환 로직
   void _onMenuTap(int index) {
     setState(() {
       _selectedIndex = index;
     });
-    Navigator.pop(context); // close drawer
+    Navigator.pop(context); // 메뉴 닫기
   }
 
   @override
@@ -52,12 +55,12 @@ class _MainAppState extends State<MainApp> {
           ],
         ),
       ),
-      body: _pages[_selectedIndex],
+      body: _pages[_selectedIndex], // 선택된 페이지 표시
     );
   }
 }
 
-// ------------------- 할일 미루지 말기 특히 너 -------------------
+=================== 데이터 저장되는 todolist===================
 
 class TodoListApp extends StatefulWidget {
   @override
@@ -71,9 +74,10 @@ class _TodoListAppState extends State<TodoListApp> {
   @override
   void initState() {
     super.initState();
-    _loadTodos();
+    _loadTodos(); // 앱 시작 시 저장된 데이터 로드
   }
 
+  //로컬 저장소(SharedPreferences)에서 데이터 불러오기
   Future<void> _loadTodos() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -81,11 +85,13 @@ class _TodoListAppState extends State<TodoListApp> {
     });
   }
 
+  // 데이터 변경 시 로컬 저장소에 영구 저장
   Future<void> _saveTodos() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString('todos', jsonEncode(_todos));
   }
 
+  // 할 일 추가 및 저장
   void _addTodo(String todo) {
     if (todo.trim().isEmpty) return;
     setState(() {
@@ -95,6 +101,7 @@ class _TodoListAppState extends State<TodoListApp> {
     _saveTodos();
   }
 
+  // 할 일 삭제 및 저장
   void _deleteTodo(int index) {
     setState(() {
       _todos.removeAt(index);
@@ -102,6 +109,7 @@ class _TodoListAppState extends State<TodoListApp> {
     _saveTodos();
   }
 
+  // 할 일 수정 팝업 및 저장
   void _editTodoDialog(int index) {
     final editController = TextEditingController(text: _todos[index]);
 
@@ -124,7 +132,7 @@ class _TodoListAppState extends State<TodoListApp> {
               setState(() {
                 _todos[index] = editController.text;
               });
-              _saveTodos();
+              _saveTodos(); // 수정 내용 반영
               Navigator.pop(context);
             },
           ),
@@ -180,7 +188,7 @@ class _TodoListAppState extends State<TodoListApp> {
   }
 }
 
-// ------------------- Timer -------------------
+=================== timer ===================
 
 class TimerApp extends StatefulWidget {
   @override
@@ -192,6 +200,7 @@ class _TimerAppState extends State<TimerApp> {
   int _seconds = 0;
   bool _isRunning = false;
 
+  // 1초 간격으로 반복 실행
   void _startTimer() {
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       setState(() {
@@ -204,7 +213,7 @@ class _TimerAppState extends State<TimerApp> {
   }
 
   void _stopTimer() {
-    _timer.cancel();
+    _timer.cancel(); // 타이머 중지
     setState(() {
       _isRunning = false;
     });
@@ -213,11 +222,12 @@ class _TimerAppState extends State<TimerApp> {
   void _resetTimer() {
     if (_isRunning) _timer.cancel();
     setState(() {
-      _seconds = 0;
+      _seconds = 0; // 시간 초기화
       _isRunning = false;
     });
   }
 
+  // 초(int) == 00:00:00 형식 문자열로 변환
   String _formatTime(int totalSeconds) {
     int hours = totalSeconds ~/ 3600;
     int minutes = (totalSeconds % 3600) ~/ 60;
@@ -226,6 +236,7 @@ class _TimerAppState extends State<TimerApp> {
     return "${twoDigits(hours)}:${twoDigits(minutes)}:${twoDigits(seconds)}";
   }
 
+  // 메모리 누수 방지를 위해 화면 종료 시 타이머 해제 
   @override
   void dispose() {
     if (_isRunning) _timer.cancel();
@@ -271,3 +282,4 @@ class _TimerAppState extends State<TimerApp> {
     );
   }
 }
+
