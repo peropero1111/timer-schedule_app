@@ -11,7 +11,7 @@ void main() {
   ));
 }
 
-=================== 메인 화면 전환 및 메뉴 관리 ===================
+//메인 화면 전환 및 메뉴 관리 
 class MainApp extends StatefulWidget {
   @override
   _MainAppState createState() => _MainAppState();
@@ -60,7 +60,7 @@ class _MainAppState extends State<MainApp> {
   }
 }
 
-=================== 데이터 저장되는 todolist===================
+//데이터 저장되는 todolist
 
 class TodoListApp extends StatefulWidget {
   @override
@@ -188,7 +188,7 @@ class _TodoListAppState extends State<TodoListApp> {
   }
 }
 
-=================== timer ===================
+//timer 
 
 class TimerApp extends StatefulWidget {
   @override
