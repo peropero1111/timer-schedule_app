@@ -5,4 +5,7 @@
 copilot 의 도움을 받아서 코드를 작성하였습니다.
 
  [이곳](https://drive.proton.me/urls/CH19TB5VJR#XLo3y7sXiNTp) 에서 완성된 파일을 다운하실 수 있습니다.
+<br>
+<br>
+※ Flutter(Dart) 기반으로 개발되어서 GitHub 언어 통계에 Dart 가 표시됩니다.
 
